@@ -78,14 +78,13 @@ import Foreign(unsafePerformIO
               ,alloca,allocaBytes,nullPtr
               ,peek,peekElemOff
               ,newForeignPtr,withForeignPtr)
-import Foreign.C(CInt,CChar)
+import Foreign.C(CInt(..),CChar)
 import Foreign.C.String(CString,CStringLen,peekCString)
 import Text.Regex.Base.RegexLike(RegexOptions(..),RegexMaker(..),RegexContext(..),MatchArray,MatchOffset)
 #else
 import Data.Array(Array)
 import Data.Bits(Bits)
 import Foreign(ForeignPtr)
-import Foreign.C(CInt)
 import Foreign.C.String(CString,CStringLen)
 import Text.Regex.Base.RegexLike(RegexOptions(..),RegexMaker(..),RegexContext(..),MatchArray,MatchOffset)
 #endif
