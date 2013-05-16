@@ -1,6 +1,6 @@
 Name:                   regex-pcre-builtin
 -- Keep the Version below in sync with ./Text/Regex/PCRE.hs value getVersion_Text_Regex_PCRE :: Version
-Version:                0.94.4.5.8.31
+Version:                0.94.4.5.8.32
 Cabal-Version:          >=1.2.3
 License:                BSD3
 License-File:           LICENSE
@@ -65,7 +65,7 @@ library
   -- The only reason to NOT define -DHAVE_PCRE_H is if you are on
   -- a plotform without a regex library but want to compile this package
   -- anyway.  The resulting regex-posix will exist, but throw errors.
-  CC-Options:             -DHAVE_PCRE_H -DHAVE_CONFIG_H
+  CC-Options:             -DHAVE_PCRE_H -DHAVE_CONFIG_H -DPCRE_STATIC
   --Include-Dirs:           /opt/local/include
   --Extra-Lib-Dirs:         /opt/local/lib
   Include-dirs: pcre
