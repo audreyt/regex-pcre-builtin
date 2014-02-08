@@ -73,8 +73,8 @@ module Text.Regex.PCRE.Wrap(
 import Control.Monad(when)
 import Data.Array(Array,accumArray)
 import Data.Bits(Bits((.|.))) -- ((.&.),(.|.),complement))
-import Foreign(unsafePerformIO
-              ,Ptr,ForeignPtr,FinalizerPtr -- ,FunPtr
+import System.IO.Unsafe(unsafePerformIO)
+import Foreign(Ptr,ForeignPtr,FinalizerPtr -- ,FunPtr
               ,alloca,allocaBytes,nullPtr
               ,peek,peekElemOff
               ,newForeignPtr,withForeignPtr)
