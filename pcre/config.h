@@ -319,19 +319,19 @@ sure both macros are undefined; an emulation function will then be used. */
 /* #undef SUPPORT_PCRE32 */
 
 /* Define to any value to enable the 8 bit PCRE library. */
-/* #undef SUPPORT_PCRE8 */
+#define SUPPORT_PCRE8
 
 /* Define to any value to enable JIT support in pcregrep. */
 /* #undef SUPPORT_PCREGREP_JIT */
 
 /* Define to any value to enable support for Unicode properties. */
-/* #undef SUPPORT_UCP */
+#define SUPPORT_UCP
 
 /* Define to any value to enable support for the UTF-8/16/32 Unicode encoding.
    This will work even in an EBCDIC environment, but it is incompatible with
    the EBCDIC macro. That is, PCRE can support *either* EBCDIC code *or*
    ASCII/UTF-8/16/32, but not both at once. */
-/* #undef SUPPORT_UTF */
+#define SUPPORT_UTF
 
 /* Define to any value for valgrind support to find invalid memory reads. */
 /* #undef SUPPORT_VALGRIND */
