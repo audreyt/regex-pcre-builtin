@@ -144,7 +144,7 @@ configUTF8 :: Bool
 instance RegexOptions Regex CompOption ExecOption where
   blankCompOpt = compBlank
   blankExecOpt = execBlank
-  defaultCompOpt = compMultiline
+  defaultCompOpt = compMultiline + compUTF8
   defaultExecOpt = execBlank
   setExecOpts e' (Regex r c _) = Regex r c e'
   getExecOpts (Regex _ _ e) = e
