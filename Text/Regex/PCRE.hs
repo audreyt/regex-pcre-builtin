@@ -57,6 +57,6 @@ import Text.Regex.Base
 
 getVersion_Text_Regex_PCRE :: Version
 getVersion_Text_Regex_PCRE =
-  Version { versionBranch = [0,94,4,0,8,31]  -- Keep in sync with regex-pcre.cabal
+  Version { versionBranch = [0,94,4,0,8,35]  -- Keep in sync with regex-pcre.cabal
           , versionTags = ["unstable"]
           }
