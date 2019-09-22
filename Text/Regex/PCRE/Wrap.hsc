@@ -69,7 +69,9 @@ module Text.Regex.PCRE.Wrap(
   retNoSubstring
   ) where
 
-import Control.Monad.Fail (MonadFail)
+import Prelude hiding (fail)
+import Control.Monad.Fail (MonadFail(fail))
+
 #if defined(HAVE_PCRE_H)
 import Control.Monad(when)
 import Data.Array(Array,accumArray)
@@ -89,7 +91,6 @@ import Foreign(ForeignPtr)
 import Foreign.C.String(CString,CStringLen)
 import Text.Regex.Base.RegexLike(RegexOptions(..),RegexMaker(..),RegexContext(..),MatchArray,MatchOffset)
 #endif
-
 
 -- | return version of pcre used or Nothing if pcre is not available.
 getVersion :: Maybe String
@@ -155,7 +156,7 @@ instance RegexOptions Regex CompOption ExecOption where
                q = makeRegex r
            in match q x
 
--- (=~~) ::(RegexMaker Regex CompOption ExecOption source,RegexContext Regex source1 target,Monad m) => source1 -> source -> m target
+-- (=~~) ::(RegexMaker Regex CompOption ExecOption source,RegexContext Regex source1 target,MonadFail m) => source1 -> source -> m target
 (=~~) x r = do (q :: Regex) <-  makeRegexM r
                matchM q x
 
@@ -179,14 +180,14 @@ nullTest' :: Ptr a -> String -> IO (Either (MatchOffset,String) b) -> IO (Either
 {-# INLINE nullTest' #-}
 nullTest' ptr msg io = do
   if nullPtr == ptr
-    then return (Left (0,"Ptr parameter was nullPtr in Text.Regex.PCRE.Wrap."++msg)) 
+    then return (Left (0,"Ptr parameter was nullPtr in Text.Regex.PCRE.Wrap."++msg))
     else io
 
 nullTest :: Ptr a -> String -> IO (Either WrapError b) -> IO (Either WrapError b)
 {-# INLINE nullTest #-}
 nullTest ptr msg io = do
   if nullPtr == ptr
-    then return (Left (retOk,"Ptr parameter was nullPtr in Text.Regex.PCRE.Wrap."++msg)) 
+    then return (Left (retOk,"Ptr parameter was nullPtr in Text.Regex.PCRE.Wrap."++msg))
     else io
 
 wrapRC :: ReturnCode -> IO (Either WrapError b)
@@ -261,8 +262,8 @@ wrapMatch startOffset (Regex pcre_fptr _ flags) (cstr,len) = do
 
 -- | wrapMatchAll is an improvement over wrapMatch since it only
 -- allocates memory with allocaBytes once at the start.
--- 
--- 
+--
+--
 wrapMatchAll (Regex pcre_fptr _ flags) (cstr,len) = do
  nullTest cstr "wrapMatchAll cstr" $ do
   withForeignPtr pcre_fptr $ \regex -> do
@@ -289,7 +290,7 @@ wrapMatchAll (Regex pcre_fptr _ flags) (cstr,len) = do
                        let acc' = acc . (toMatchArray nsub_int pairs:)
                        case pairs of
                          [] -> return (Right (acc' []))
-                         ((s,e):_) | s==e -> if s == len 
+                         ((s,e):_) | s==e -> if s == len
                                                then return (Right (acc' []))
                                                else loop acc' flags' e
                                    | otherwise -> loop acc' flags e
@@ -463,7 +464,7 @@ compUngreedy = err
 compUTF8 = err
 compNoUTF8Check = err
 
-execAnchored, execNotBOL, execNotEOL, execNotEmpty, execNoUTF8Check, execPartial :: ExecOption 
+execAnchored, execNotBOL, execNotEOL, execNotEmpty, execNoUTF8Check, execPartial :: ExecOption
 execBlank = err
 execAnchored = err
 execNotBOL = err
@@ -472,7 +473,7 @@ execNotEmpty = err
 execNoUTF8Check = err
 execPartial = err
 
-retNoMatch, retNull, retBadOption, retBadMagic, retUnknownNode, retNoMemory, retNoSubstring :: ReturnCode 
+retNoMatch, retNull, retBadOption, retBadMagic, retUnknownNode, retNoMemory, retNoSubstring :: ReturnCode
 retNoMatch = err
 retNull = err
 retBadOption = err

@@ -45,6 +45,9 @@ module Text.Regex.PCRE.ByteString.Lazy(
   execPartial
   ) where
 
+import Prelude hiding (fail)
+import Control.Monad.Fail (MonadFail(fail))
+
 import Text.Regex.PCRE.Wrap -- all
 import Data.Array(Array)
 import qualified Data.ByteString.Lazy as L(ByteString,toChunks,fromChunks,last,null,snoc)

@@ -45,6 +45,9 @@ module Text.Regex.PCRE.ByteString(
   execPartial
   ) where
 
+import Prelude hiding (fail)
+import Control.Monad.Fail (MonadFail(fail))
+
 import Text.Regex.PCRE.Wrap -- all
 import Data.Array(Array,listArray)
 import Data.ByteString(ByteString)

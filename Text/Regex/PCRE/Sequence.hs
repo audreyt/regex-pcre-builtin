@@ -45,6 +45,9 @@ module Text.Regex.PCRE.Sequence(
   execPartial
   ) where
 
+import Prelude hiding (fail)
+import Control.Monad.Fail (MonadFail(fail))
+
 import Text.Regex.PCRE.Wrap -- all
 --import Foreign.C.String(withCStringLen,withCString)
 import Data.Array(Array,listArray)

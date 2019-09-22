@@ -1,4 +1,3 @@
-{-# OPTIONS_GHC -fno-warn-unused-imports #-}
 {-|
 The "Text.Regex.PCRE" module provides a backend for regular
 expressions.  If you import this along with other backends, then
@@ -40,6 +39,8 @@ module Text.Regex.PCRE(getVersion_Text_Regex_PCRE
   -- ** Wrap, for '=~' and '=~~', types and constants
   ,module Text.Regex.PCRE.Wrap) where
 
+import Prelude hiding (fail)
+
 import Text.Regex.PCRE.Wrap(Regex, CompOption(CompOption), ExecOption(ExecOption), (=~), (=~~),
   unusedOffset, getNumSubs, configUTF8, getVersion,
   compBlank, compAnchored, compAutoCallout, compCaseless,
@@ -54,9 +55,7 @@ import Text.Regex.PCRE.ByteString()
 import Text.Regex.PCRE.ByteString.Lazy()
 import Data.Version(Version(..))
 import Text.Regex.Base
+import Paths_regex_pcre_builtin
 
 getVersion_Text_Regex_PCRE :: Version
-getVersion_Text_Regex_PCRE =
-  Version { versionBranch = [0,94,4,0,8,35]  -- Keep in sync with regex-pcre.cabal
-          , versionTags = ["unstable"]
-          }
+getVersion_Text_Regex_PCRE = Paths_regex_pcre_builtin.version

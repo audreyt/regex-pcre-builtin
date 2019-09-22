@@ -43,14 +43,17 @@ library
       TypeSynonymInstances
       FlexibleInstances
 
-  build-depends: regex-base == 0.93.*
-               , base       >= 4.3 && < 4.13
+  build-depends: regex-base == 0.94.*
+               , base       >= 4.3 && < 4.14
                , containers >= 0.4 && < 0.7
                , bytestring >= 0.9 && < 0.11
                , array      >= 0.3 && < 0.6
 
+  if !impl(ghc >= 8)
+      build-depends: fail == 4.9.*
+
   ghc-options: -O2
-               -Wall
+               -Wall -fno-warn-unused-imports
   cc-options:  -DHAVE_PCRE_H -DHAVE_CONFIG_H -DPCRE_STATIC -DHAVE_INTTYPES_H -DHAVE_STDINT_H -DHAVE_STDLIB_H
   include-dirs: pcre
   includes: pcre.h config.h
