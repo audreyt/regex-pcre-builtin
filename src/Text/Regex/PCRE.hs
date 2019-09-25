@@ -4,15 +4,6 @@ expressions.  If you import this along with other backends, then
 you should do so with qualified imports, perhaps renamed for
 convenience.
 
-You will need to have libpcre, from www.pcre.org, to use
-this module.  The haskell must be compiled with -DHAVE_PCRE_H and
-linked with pcre.  This is the default in the cabal file.
-
-If you do not compile with HAVE_PCRE_H then the functions will still
-exist, but using them will create a run time error.  You can test for
-the existance of PCRE by checking 'getVersion' which is 'Nothing' if
-not compiled with PCRE or 'Just' 'String' if PCRE is present.
-
 Using the provided 'CompOption' and 'ExecOption' values and if
 'configUTF8' is True, then you might be able to send UTF8 encoded
 ByteStrings to PCRE and get sensible results.  This is currently

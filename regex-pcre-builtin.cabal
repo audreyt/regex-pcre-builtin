@@ -55,7 +55,7 @@ library
 
   ghc-options: -O2
                -Wall -fno-warn-unused-imports
-  cc-options:  -DHAVE_PCRE_H -DHAVE_CONFIG_H -DPCRE_STATIC -DHAVE_INTTYPES_H -DHAVE_STDINT_H -DHAVE_STDLIB_H
+  cc-options:  -DHAVE_CONFIG_H
   include-dirs: pcre
   includes: pcre.h config.h
   c-sources:

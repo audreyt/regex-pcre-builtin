@@ -72,7 +72,6 @@ module Text.Regex.PCRE.Wrap(
 import Prelude hiding (fail)
 import Control.Monad.Fail (MonadFail(fail))
 
-#if defined(HAVE_PCRE_H)
 import Control.Monad(when)
 import Data.Array(Array,accumArray)
 import Data.Bits(Bits((.|.))) -- ((.&.),(.|.),complement))
@@ -84,15 +83,11 @@ import Foreign(Ptr,ForeignPtr,FinalizerPtr -- ,FunPtr
 import Foreign.C(CInt(..),CChar)
 import Foreign.C.String(CString,CStringLen,peekCString)
 import Text.Regex.Base.RegexLike(RegexOptions(..),RegexMaker(..),RegexContext(..),MatchArray,MatchOffset)
-#else
-import Data.Array(Array)
-import Data.Bits(Bits)
-import Foreign(ForeignPtr)
-import Foreign.C.String(CString,CStringLen)
-import Text.Regex.Base.RegexLike(RegexOptions(..),RegexMaker(..),RegexContext(..),MatchArray,MatchOffset)
-#endif
 
--- | return version of pcre used or Nothing if pcre is not available.
+-- | Version string of PCRE library
+--
+-- __NOTE__: The 'Maybe' type is used for historic reasons; practically, 'getVersion' is never 'Nothing'.
+{-# NOINLINE getVersion #-}
 getVersion :: Maybe String
 
 type PCRE = ()
@@ -132,6 +127,8 @@ wrapMatchAll :: Regex -> CStringLen -> IO (Either WrapError [ MatchArray ])
 wrapCount :: Regex -> CStringLen -> IO (Either WrapError Int)
 
 getNumSubs :: Regex -> Int
+
+{-# NOINLINE configUTF8 #-}
 configUTF8 :: Bool
 
 (=~)  :: (RegexMaker Regex CompOption ExecOption source,RegexContext Regex source1 target)
@@ -139,7 +136,6 @@ configUTF8 :: Bool
 (=~~) :: (RegexMaker Regex CompOption ExecOption source,RegexContext Regex source1 target,MonadFail m)
       => source1 -> source -> m target
 
-#if defined(HAVE_PCRE_H)
 #include <sys/types.h>
 #include <pcre.h>
 
@@ -422,70 +418,3 @@ foreign import ccall unsafe "pcre.h pcre_config"
   PCRE_CONFIG_MATCH_LIMIT_RECURSION, \
   PCRE_CONFIG_STACKRECURSE
 -}
-
-#else /* do not HAVE_PCRE_H */
-
-instance RegexOptions Regex CompOption ExecOption where
-  blankCompOpt = err
-  blankExecOpt = err
-  defaultCompOpt = err
-  defaultExecOpt = err
-  getExecOpts = err
-  setExecOpts = err
-
-msg :: String
-msg = "WrapPCRE.hsc was not compiled against pcre library with HAVE_PCRE_H defined"
-err :: a
-err = error msg
-
-(=~) = err
-(=~~) = err
-
--- Hack to avoid the constructor from being unused
-wrapCompile _ _ _  =  err >> return (Right (Regex err err err))
-wrapTest = err
-wrapMatch = err
-wrapMatchAll = err
-wrapCount = err
-
-compAnchored, compAutoCallout, compCaseless, compDollarEndOnly, compDotAll, compExtended, compExtra, compFirstLine, compMultiline, compNoAutoCapture, compUngreedy, compUTF8, compNoUTF8Check :: CompOption
-compBlank = err
-compAnchored = err
-compAutoCallout = err
-compCaseless = err
-compDollarEndOnly = err
-compDotAll = err
-compExtended = err
-compExtra = err
-compFirstLine = err
-compMultiline = err
-compNoAutoCapture = err
-compUngreedy = err
-compUTF8 = err
-compNoUTF8Check = err
-
-execAnchored, execNotBOL, execNotEOL, execNotEmpty, execNoUTF8Check, execPartial :: ExecOption
-execBlank = err
-execAnchored = err
-execNotBOL = err
-execNotEOL = err
-execNotEmpty = err
-execNoUTF8Check = err
-execPartial = err
-
-retNoMatch, retNull, retBadOption, retBadMagic, retUnknownNode, retNoMemory, retNoSubstring :: ReturnCode
-retNoMatch = err
-retNull = err
-retBadOption = err
-retBadMagic = err
-retUnknownNode = err
-retNoMemory = err
-retNoSubstring = err
-
-getNumSubs = err
-unusedOffset = err
-configUTF8 = err
-
-getVersion = Nothing
-
-#endif /* HAVE_PCRE_H */
