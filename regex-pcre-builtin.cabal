@@ -9,11 +9,15 @@ copyright:              Copyright (c) 2006, Christopher Kuklewicz
 author:                 Audrey Tang
 maintainer:             audreyt@audreyt.org
 bug-reports:            https://github.com/audreyt/regex-pcre-builtin/issues
-synopsis:               Replaces/Enhances Text.Regex
 category:               Text
+
+synopsis:    PCRE Backend for "Text.Regex" (regex-base)
 description:
-  <http://pcre.org/ PCRE> backend for <//hackage.haskell.org/package/regex-base regex-base>,
-  with bundled code from www.pcre.org
+  This package provides a <http://pcre.org/ PCRE> backend for the <//hackage.haskell.org/package/regex-base regex-base> API.
+  .
+  See also <https://wiki.haskell.org/Regular_expressions> for more information.
+  .
+  Includes bundled code from www.pcre.org
 
 extra-source-files:
   ChangeLog.md
