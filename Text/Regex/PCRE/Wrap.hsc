@@ -69,6 +69,7 @@ module Text.Regex.PCRE.Wrap(
   retNoSubstring
   ) where
 
+import Control.Monad.Fail (MonadFail)
 #if defined(HAVE_PCRE_H)
 import Control.Monad(when)
 import Data.Array(Array,accumArray)
@@ -134,7 +135,7 @@ configUTF8 :: Bool
 
 (=~)  :: (RegexMaker Regex CompOption ExecOption source,RegexContext Regex source1 target)
       => source1 -> source -> target
-(=~~) :: (RegexMaker Regex CompOption ExecOption source,RegexContext Regex source1 target,Monad m)
+(=~~) :: (RegexMaker Regex CompOption ExecOption source,RegexContext Regex source1 target,MonadFail m)
       => source1 -> source -> m target
 
 #if defined(HAVE_PCRE_H)

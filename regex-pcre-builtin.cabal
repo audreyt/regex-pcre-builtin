@@ -26,21 +26,23 @@ flag splitBase
   default: True
 library
   if flag(newBase)
-    Build-Depends: base >= 4 && < 5, regex-base >=0.93 && <0.94, array, containers, bytestring
+    Build-Depends: base >= 4 && < 5, regex-base >=0.93 && <0.95, array, containers, bytestring
     -- Need the next symbol for using CPP to get Data.ByteString.Base|Unsafe in
     --  ./Text/Regex/Posix/ByteString.hs and  ./Text/Regex/Posix/ByteString/Lazy.hs
     CPP-Options: "-DSPLIT_BASE=1"
     Extensions:    MultiParamTypeClasses, FunctionalDependencies, CPP, ForeignFunctionInterface, ScopedTypeVariables, GeneralizedNewtypeDeriving, FlexibleContexts, TypeSynonymInstances, FlexibleInstances
   else
     if flag(splitBase)
-      Build-Depends: base >= 3.0, regex-base >=0.93 && <0.94, array, containers, bytestring
+      Build-Depends: base >= 3.0, regex-base >=0.93 && <0.95, array, containers, bytestring
       -- Need the next symbol for using CPP to get Data.ByteString.Base|Unsafe in
       --  ./Text/Regex/Posix/ByteString.hs and  ./Text/Regex/Posix/ByteString/Lazy.hs
       CPP-Options: "-DSPLIT_BASE=1"
       Extensions:    MultiParamTypeClasses, FunctionalDependencies, CPP, ForeignFunctionInterface, ScopedTypeVariables, GeneralizedNewtypeDeriving, FlexibleContexts, TypeSynonymInstances, FlexibleInstances
     else
-      Build-Depends: base < 3.0, regex-base >=0.93 && <0.94
+      Build-Depends: base < 3.0, regex-base >=0.93 && <0.95
       Extensions:    MultiParamTypeClasses, FunctionalDependencies, CPP
+  if impl(ghc < 8)
+    Build-Depends: fail
   Exposed-Modules:        Text.Regex.PCRE
                           Text.Regex.PCRE.Wrap
                           Text.Regex.PCRE.String
