@@ -1,6 +1,6 @@
 See also http://pvp.haskell.org/faq
 
-## 0.95.0.0
+## 0.95.1.0.8.43
 
 - Update to `regex-0.94.0.0` API
 - Compatibility with `base-4.13.0`
