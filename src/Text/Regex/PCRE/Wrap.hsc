@@ -1,3 +1,4 @@
+{-# OPTIONS_GHC -Wno-unused-do-bind #-}
 -- The exported symbols are the same whether HAVE_PCRE_H is defined,
 -- but when if it is not defined then 'getVersion == Nothing' and all
 -- other exported values will call error or fail.
