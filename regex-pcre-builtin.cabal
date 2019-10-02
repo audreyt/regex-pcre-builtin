@@ -1,5 +1,5 @@
 Name:                   regex-pcre-builtin
-Version:                0.95.0.8.8.35
+Version:                0.95.1.0.8.43
 Cabal-Version:          >=1.10
 stability:              Seems to work, passes a few tests
 build-type:             Simple
