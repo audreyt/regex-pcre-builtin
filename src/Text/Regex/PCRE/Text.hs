@@ -51,6 +51,8 @@ module Text.Regex.PCRE.Text
 
 import           Data.Array(Array,listArray)
 import           Data.Char(ord)
+import           Control.Monad.Fail (fail)
+import           Prelude hiding (fail)
 import qualified Data.ByteString              as B
 import qualified Data.ByteString.Unsafe       as B
 import qualified Data.Text                    as T
