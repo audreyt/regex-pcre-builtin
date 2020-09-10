@@ -50,6 +50,7 @@ module Text.Regex.PCRE.Text
   ) where
 
 import           Data.Array(Array,listArray)
+import           Data.Char(ord)
 import qualified Data.ByteString              as B
 import qualified Data.ByteString.Unsafe       as B
 import qualified Data.Text                    as T
@@ -154,7 +155,9 @@ unwrap x = case x of
 
 {-# INLINE asCString #-}
 asCString :: T.Text -> (CString->IO a) -> IO a
-asCString = B.unsafeUseAsCString . T.encodeUtf8
+asCString t
+  | T.null t || (ord (T.last t) /= 0) = B.useAsCString $ T.encodeUtf8 t
+  | otherwise = B.unsafeUseAsCString $ T.encodeUtf8 t
 
 {-# INLINE asCStringLen #-}
 asCStringLen :: T.Text -> (CStringLen->IO a) -> IO a
