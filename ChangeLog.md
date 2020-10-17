@@ -1,5 +1,8 @@
 See also http://pvp.haskell.org/faq
 
+## 0.95.1.3.8.43
+- Version bump to reflect pcre version (8.43) and to have Hackage upgrade from 0.95.1.2.8.43 which does not include #15
+
 ## 0.95.1.1.8.44
 - Fix: `asCString` for `Text` regexes doesn't check for null-termination, causing the compiled regex to be corrupted. (@kuribas)
 
