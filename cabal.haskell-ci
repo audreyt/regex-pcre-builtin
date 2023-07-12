@@ -1,1 +1,7 @@
 branches: master ci*
+
+constraint-set bytestring-0.12
+  -- bytestring-0.12 requires base >=4.9 (GHC 8.0)
+  -- latest text requires base >=4.10 (GHC 8.2)
+  ghc: >= 8.2
+  constraints: bytestring >= 0.12
